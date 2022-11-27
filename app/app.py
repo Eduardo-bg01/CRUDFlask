@@ -2,12 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 from config import config
 
-
-#models
-from models.ModelUser import ModelUser
-#entities
-from models.entities.User import User
-
 app=Flask(__name__)
 db=MySQL(app)
 
