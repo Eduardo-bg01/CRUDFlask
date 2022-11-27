@@ -1,12 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+import MySQLdb
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 from config import config
-
-
-#models
-from models.ModelUser import ModelUser
-#entities
-from models.entities.User import User
 
 app=Flask(__name__)
 db=MySQL(app)
@@ -17,19 +12,21 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        user = User(1, request.form['mail'], request.form['passwd'])
-        logged_user=ModelUser.login(db,user)
-        if logged_user != None:
-            if logged_user.passwd:
-                return redirect(url_for('home'))
-            else:
-                flash("Contrasena invalida")
+    msg = ''
+    if request.method == 'POST' and 'mail' in request.form and 'passwd' in request.form:
+        mail = request.form['mail']
+        passwd = request.form['passwd']
+        cursor = MySQLdb.MySQLError.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM accounts WHERE mail = %s AND passwd = %s', (mail, passwd,))
+        account = cursor.fetchone()
+        if account:
+            session['loggedin'] = True
+            session['id'] = account['id']
+            session['mail'] = account['mail']
+            return 'Logged in successfully!'
         else:
-            flash("usuario no encontrado")
-        return render_template('auth/login.html')
-    else:
-        return render_template('auth/login.html')
+            msg = 'Incorrect username/password!'
+    return render_template('home.html', msg=msg)
 
 @app.route('/home')
 def home():
