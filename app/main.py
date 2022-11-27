@@ -1,5 +1,4 @@
 from app import create_app
-from app.migrate import init_db
 from flask import render_template, request, redirect, url_for, session
 from app.models import *
 
@@ -11,7 +10,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    msg = ''
     if request.method == 'POST':
         correo = request.form['mail']
         contra = request.form['passwd']
@@ -20,10 +18,9 @@ def login():
 
         db.session.add(us)
         db.session.commit()
-        return 'Logged in successfully!'
+        return render_template('login.html')    
     else:
-            msg = 'Incorrect username/password!'
-    return render_template('home.html', msg=msg)
+        return render_template('home.html')
 
 @app.route('/home')
 def home():
