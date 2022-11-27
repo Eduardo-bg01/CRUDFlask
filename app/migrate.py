@@ -9,7 +9,7 @@ def create_db():
 def init_db():
     create_db()
     admin = Users(
-        mail="eduardo"
+        name="Pedro"
 
     )
 
