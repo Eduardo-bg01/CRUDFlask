@@ -27,8 +27,8 @@ def login():
             else:
                 return render_template('login.html')
         else:
-            return render_template('/login')
-    return render_template('/login')
+            return render_template('/login.html')
+    return render_template('/login.html')
 
 @app.route('/home')
 def home():
