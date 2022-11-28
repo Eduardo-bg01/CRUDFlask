@@ -8,14 +8,14 @@ db=SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return redirect(url_for('login'))
+    return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         return render_template('home.html')
     else:
-        return render_template('auth/login.html')
+        return render_template('login.html')
 
 @app.route('/home')
 def home():

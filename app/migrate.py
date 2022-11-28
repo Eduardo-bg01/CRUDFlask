@@ -4,8 +4,8 @@ def create_db():
     db.create_al()
 
 def init_db():
-    create_db()
-    admin = Users(mail="Eduardo")
+   create_db()
+   admin = Usuarios(mail="Eduardo")
 
-    db.session.add(admin)
-    db.session.commit()
+   db.session.add(admin)
+   db.session.commit()
