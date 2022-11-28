@@ -23,7 +23,7 @@ def login():
 
             if mail !=None:
                 produ = Productos.query.all()
-                return render_template('home.html', produ=produ)
+                return redirect('home.html', produ=produ)
             else:
                 return render_template('login.html')
         else:
