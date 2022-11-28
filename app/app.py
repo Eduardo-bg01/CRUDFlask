@@ -1,5 +1,6 @@
 from app import create_app
-from flask import Flask, render_template, request, redirect, session
+from flask import render_template, request, redirect, session
+from app.migrate import init_db
 from flask_mysqldb import MySQL
 from app.models import *
 
@@ -11,7 +12,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    msg = ''
     if request.method == 'POST' and 'mail' in request.form and 'passwd' in request.form:
 
         mail = request.form['mail']
@@ -27,7 +27,6 @@ def login():
             else:
                 return render_template('login.html')
         else:
-            msg='usuario erroneo o contrasena erronea'
             return render_template('/login')
     return render_template('/login')
 
@@ -100,5 +99,4 @@ def delete():
     return render_template('home.html')
 
 if __name__ == '__main__':
-    app.config.from_object(config['development'])
-    app.run()
+    app.run(debug=True, port=5000)
