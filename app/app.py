@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-#from flask_mysqldb import MySQL
-from flask_sqlalchemy import SQLAlchemy
-from config import config
+from app import create_app
+from flask import Flask, render_template, request, redirect, session
+from flask_mysqldb import MySQL
+from app.models import *
 
-app=Flask(__name__)
-db=SQLAlchemy(app)
+app= create_app()
 
 @app.route('/')
 def index():
@@ -12,10 +11,25 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        return render_template('home.html')
-    else:
-        return render_template('login.html')
+    msg = ''
+    if request.method == 'POST' and 'mail' in request.form and 'passwd' in request.form:
+
+        mail = request.form['mail']
+        passwd = request.form['passwd']
+
+        mail = Usuarios.query.filter_by(mail=mail).first()
+        if mail != None:
+            mail = Usuarios.query.filter_by(passwd=passwd).first()
+
+            if mail !=None:
+                produ = Productos.query.all()
+                return render_template('home.html', produ=produ)
+            else:
+                return render_template('login.html')
+        else:
+            msg='usuario erroneo o contrasena erronea'
+            return render_template('/login')
+    return render_template('/login')
 
 @app.route('/home')
 def home():
