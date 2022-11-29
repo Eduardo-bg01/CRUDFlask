@@ -6,6 +6,12 @@ from app.models import *
 
 app= create_app()
 
+@app.route('/testdb')
+def test():
+    for v in Usuarios.query.all():
+        print(v.mail)
+    return "test"
+
 @app.route('/')
 def index():
     return redirect('/login')
