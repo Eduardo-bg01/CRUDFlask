@@ -6,7 +6,7 @@
 <h1>Bienvenido!!!</h1>
 <br>
 <h2>Ingrese Producto</h2>
-<form class="form-inline" method="post" action="/agregarProducto">
+<form class="form-inline" method="post" action="./agregarProducto">
     <div class="form-group mx-sm-3 mb-2">
       <label for="inputText" class="sr-only">Producto</label>
       <input type="text" class="form-control" id="producto" placeholder="Producto" name="nombreProducto">
@@ -37,33 +37,33 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.precio }}</td>
-            <td>{{ producto.cantidad }}</td>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.precio}}</td>
+            <td>{{producto.cantidad}}</td>
             <td> 
                 <form method="post" action="/actualizarNombreProducto"> 
-                    <input type="hidden" value="{{ producto.nombre }}" name="nombreViejo">
-                    <input type="text" value="{{ Producto.nombre }}" name="nombreNuevo">
+                    <input type="hidden" value="{{producto.nombre}}" name="nombreViejo">
+                    <input type="text" value="{{producto.nombre}}" name="nombreNuevo">
                     <input type="submit" value="Actualizar">
                 </form>
             </td>
             <td> 
                 <form method="post" action="/actualizarPrecioProducto"> 
-                    <input type="hidden" value="{{ producto.precio }}" name="precioViejo">
-                    <input type="text" value="{{ Producto.precio }}" name="precioNuevo">
+                    <input type="hidden" value="{{producto.precio}}" name="precioViejo">
+                    <input type="text" value="{{producto.precio}}" name="precioNuevo">
                     <input type="submit" value="Actualizar">
                 </form>
             </td>
             <td> 
                 <form method="post" action="/actualizarCantidadProducto"> 
-                    <input type="hidden" value="{{ producto.cantidad }}" name="cantidadVieja">
-                    <input type="text" value="{{ Producto.cantidad }}" name="cantidadNuevo">
+                    <input type="hidden" value="{{producto.cantidad}}" name="cantidadVieja">
+                    <input type="text" value="{{producto.cantidad}}" name="cantidadNuevo">
                     <input type="submit" value="Actualizar">
                 </form>
             </td>
             <td> 
                 <form method="post" action="/borrarProducto">
-                    <input type="hidden" value="{{ producto.nombre }}" name="nombreBorrar">
+                    <input type="hidden" value="{{producto.nombre}}" name="nombreBorrar">
                     <input type="submit" value="Borrar">
                 </form>
             </td>

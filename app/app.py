@@ -6,12 +6,6 @@ from app.models import *
 
 app= create_app()
 
-@app.route('/testdb')
-def test():
-    for v in Usuarios.query.all():
-        print(v.mail)
-    return "test"
-
 @app.route('/')
 def index():
     return redirect('/login')
@@ -27,14 +21,14 @@ def login():
         if mail != None:
             mail = Usuarios.query.filter_by(passwd=passwd).first()
 
-            if mail !=None:
-                produ = Productos.query.all()
-                return render_template('home.html', produ=produ)
+            if mail != None:
+                productos = Productos.query.all()
+                return render_template('home.html', productos = productos)
             else:
                 return render_template('login.html')
         else:
-            return render_template('/login.html')
-    return render_template('/login.html')
+            return render_template('login.html')
+    return render_template('login.html')
 
 @app.route('/home')
 def home():
