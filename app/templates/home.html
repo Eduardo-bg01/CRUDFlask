@@ -3,71 +3,89 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<h1>Bienvenido!!!</h1>
+<h2>CRUD</h2>
 <br>
 <h2>Ingrese Producto</h2>
-<form class="form-inline" method="post" action="./agregarProducto">
-    <div class="form-group mx-sm-3 mb-2">
+<form  class="custom-centered" method="post" action="./agregarProducto">
+    <div class="form-group">
       <label for="inputText" class="sr-only">Producto</label>
       <input type="text" class="form-control" id="producto" placeholder="Producto" name="nombre">
     </div>
-    <div class="form-group mx-sm-3 mb-2">
+    <div class="form-group">
         <label for="inputText2" class="sr-only">Precio</label>
         <input type="number" class="form-control" id="precio" placeholder="Precio" name="precio">
       </div>
-      <div class="form-group mx-sm-3 mb-2">
+      <div class="form-group">
         <label for="inputNumber" class="sr-only">Cantidad</label>
         <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad">
       </div>
     <button type="submit" class="btn btn-primary mb-2">Registrar</button>
-  </form>
+</form>
 
   <br>
   <br>
 
-  <h2>Productos</h2>
-    <table class="table">
-        {% for producto in productos %}
+  <h3>Consulta de Productos</h3>
+    <table class="table table-bordered">
+        
         <thead>
           <tr>
-            <th scope="col">Producto</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th>
+            <th scope="row">Producto</th>
+            <th scope="row">Precio</th>
+            <th scope="row">Cantidad</th>
           </tr>
         </thead>
+        {% for producto in productos %}
         <tbody>
           <tr>
             <td>{{producto.nombre}}</td>
             <td>{{producto.precio}}</td>
             <td>{{producto.cantidad}}</td>
-            <td> 
-                <form method="post" action="/actualizarNombreProducto"> 
-                    <input type="hidden" value="{{producto.nombre}}" name="nombreViejo">
-                    <input type="text" value="{{producto.nombre}}" name="nombreNuevo">
-                    <input type="submit" value="Actualizar">
-                </form>
-            </td>
-            <td> 
-                <form method="post" action="/actualizarPrecioProducto"> 
-                    <input type="hidden" value="{{producto.precio}}" name="precioViejo">
-                    <input type="text" value="{{producto.precio}}" name="precioNuevo">
-                    <input type="submit" value="Actualizar">
-                </form>
-            </td>
-            <td> 
-                <form method="post" action="/actualizarCantidadProducto"> 
-                    <input type="hidden" value="{{producto.cantidad}}" name="cantidadVieja">
-                    <input type="text" value="{{producto.cantidad}}" name="cantidadNuevo">
-                    <input type="submit" value="Actualizar">
-                </form>
-            </td>
-            <td> 
-                <form method="post" action="./borrarProducto">
-                    <input type="hidden" value="{{producto.idproducto}}" name="nombreBorrar">
-                    <input type="submit" value="Borrar">
-                </form>
-            </td>
           </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+      <br>
+      <br>
+
+      <h3>Modificar y eliminar Productos</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="row">Producto</th>
+            <th scope="row">Precio</th>
+            <th scope="row">Cantidad</th>
+          </tr>
+        </thead>
+        {% for producto in productos %}
+        <tbody>
+          <td> 
+            <form method="post" action="/actualizarNombreProducto"> 
+                <input type="hidden" value="{{producto.nombre}}" name="nombreViejo">
+                <input type="text" value="{{producto.nombre}}" name="nombreNuevo">
+                <input type="submit" value="Actualizar">
+            </form>
+        </td>
+        <td> 
+            <form method="post" action="/actualizarPrecioProducto"> 
+                <input type="hidden" value="{{producto.precio}}" name="precioViejo">
+                <input type="text" value="{{producto.precio}}" name="precioNuevo">
+                <input type="submit" value="Actualizar">
+            </form>
+        </td>
+        <td> 
+            <form method="post" action="/actualizarCantidadProducto"> 
+                <input type="hidden" value="{{producto.cantidad}}" name="cantidadVieja">
+                <input type="text" value="{{producto.cantidad}}" name="cantidadNuevo">
+                <input type="submit" value="Actualizar">
+            </form>
+        </td>
+        <td>
+          <form method="post" action="./borrarProducto">
+            <input type="hidden" value="{{producto.idproducto}}" name="nombreBorrar">
+            <input type="submit" value="Borrar">
+          </form>
+        </td>
         </tbody>
         {% endfor %}
       </table>
