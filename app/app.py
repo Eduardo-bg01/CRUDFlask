@@ -36,64 +36,60 @@ def home():
 
 @app.route("/agregarProducto", methods=["GET", "POST"])
 def agregarProducto():
-    producto = None
-    if request.form:
-        try:
-            nombre = producto(nombre=request.form.get("nombreProducto"))
-            precio = producto(precio=request.form.get("precioProducto"))
-            cantidad = producto(cantidad=request.form.get("cantidadProducto"))
-            db.session.add(nombre, precio, cantidad)
-            db.session.commit
-        except Exception as e:
-            print("Fallo al agregar prodcuto")
-            print(e)
-    productos = producto.query.all()
+    nombreP=request.form["nombre"]
+    precioP=request.form["precio"]
+    cantidadP=request.form["cantidad"]
+
+    produ = Productos(nombre=nombreP,precio=precioP,cantidad=cantidadP)
+
+    db.session.add(produ)
+    db.session.commit()
+    
+    productos = Productos.query.all()
     return render_template('home.html', productos=productos)
     
 @app.route("/actualizarNombreProducto", methods=["POST"])
 def actualizarNombreProducto():
-    try:
-        nombreNuevo = request.form.get("nombreNuevo")
-        nombreViejo = request.form.get("nombreViejo")
-        producto = producto.query.filter_by(nombre=nombreViejo).first()
-        producto.nombre = nombreNuevo
+        nombrePN= request.form.get("nombreNuevo")
+        nombrePV = request.form.get("nombreViejo")
+
+        produ = Productos.query.filter_by(nombre=nombrePV).first()
+        produ.nombre = nombrePN
         db.session.commit()
-    except Exception as e:
-        print("No se pudo actualizar el nombre")
-        print(e)
-    return redirect("home.html")
+
+        productos = Productos.query.all()
+        return render_template('home.html', productos=productos)
 
 @app.route("/actualizarPrecioProducto", methods=["POST"])
 def actualizarPrecioProducto():
-    try:
-        precioNuevo = request.form.get("precioNuevo")
-        precioViejo = request.form.get("precioViejo")
-        producto = producto.query.filter_by(precio=precioViejo).first()
-        producto.precio = precioNuevo
+
+        precioPN = request.form.get("precioNuevo")
+        precioPV = request.form.get("precioViejo")
+
+        produ = Productos.query.filter_by(precio=precioPV).first()
+        produ.precio = precioPN
         db.session.commit()
-    except Exception as e:
-        print("No se pudo actualizar el precio")
-        print(e)
-    return redirect("home.html")
+
+        productos = Productos.query.all()
+        return render_template('home.html', productos=productos)
 
 @app.route("/actualizarCantidadProducto", methods=["POST"])
 def actualizarCantidadProducto():
-    try:
-        cantidadNuevo = request.form.get("cantidadNuevo")
-        cantidadViejo = request.form.get("cantidadejo")
-        producto = producto.query.filter_by(cantidad=cantidadViejo).first()
-        producto.cantidad = cantidadNuevo
+        cantidadPN = request.form.get("cantidadNuevo")
+        cantidadPV = request.form.get("cantidadejo")
+
+        produ = Productos.query.filter_by(cantidad=cantidadPV).first()
+        produ.cantidad = cantidadPN
         db.session.commit()
-    except Exception as e:
-        print("No se pudo actualizar la cantidad")
-        print(e)
-    return redirect("home.html")
+
+        productos = Productos.query.all()
+        return render_template('home.html', productos=productos)
 
 
 @app.route("/borrarProducto", methods=["POST"])
 def delete():
     idBorrar = request.form.get("nombreBorrar")
-    foundProducto = Productos.query.filter_by(idBorrar=idBorrar).first()
+    foundProducto = Productos.query.filter_by(idproducto=idBorrar).first()
     db.session.delete(foundProducto)
     db.session.commit()
 
