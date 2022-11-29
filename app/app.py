@@ -1,7 +1,6 @@
 from app import create_app
 from flask import render_template, request, redirect, session
 from app.migrate import init_db
-from flask_mysqldb import MySQL
 from app.models import *
 
 app= create_app()
