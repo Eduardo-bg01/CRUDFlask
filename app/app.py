@@ -89,8 +89,8 @@ def actualizarCantidadProducto():
 @app.route("/borrarProducto", methods=["POST"])
 def delete():
     idBorrar = request.form.get("nombreBorrar")
-    foundProducto = Productos.query.filter_by(idproducto=idBorrar).first()
-    db.session.delete(foundProducto)
+    fProducto = Productos.query.filter_by(idproducto=idBorrar).first()
+    db.session.delete(fProducto)
     db.session.commit()
 
     productos = Productos.query.all()
